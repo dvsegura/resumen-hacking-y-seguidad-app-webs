@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resumen Hacking y seguridad de páginas webs</title>
+  </head>
+  <body>
+    <h1>Resumen Hacking y seguridad de páginas webs</h1>
+    <h2>Autores:</h2>
+    <ul>
+      <li>Antonio Ángel Ramos</li>
+      <li>Carlos Alberto Barbero Muños</li>
+      <li>Ruben Martinez Sanchez</li>
+      <li>Ángel García Moreno</li>
+      <li>Jesús María González Navada</li>
+    </ul>
+    <main>
+      <section>
+        <h2>Índice</h2>
+        <a href="#cap1">Capitulo 1.Introducción al Pentest web</a>
+      </section>
+      <section id="cap1">
+        <h2>Introducción al pentest web</h2>
+        <h3>1.1 Etapas de un Pentest</h3>
+        <h4>
+          Clasificación dependiendo del nivel de información de partida a la
+          hora de realizar el test de penetración
+        </h4>
+        <ul>
+          <li>Caja Negra(no se dispone de información)</li>
+          <li>
+            Caja Blanca(el penester dispone del total de información sobre el
+            sistema a auditar)
+          </li>
+          <li>Caja Gris(mezcla de las dos anteriores)</li>
+        </ul>
+        <h4>Metodologías</h4>
+        <ul>
+          <li>
+            <a href="https://www.nist.gov/" target="_blank"
+              >NIST(National Institute of Standards and Technology)</a
+            >
+          </li>
+          <li>
+            <a href="https://owasp.org/"
+              >OWASP(Open Web Application Security Project)</a
+            >
+          </li>
+          <li>
+            <a href="https://www.isecom.org/research.html"
+              >OSSTMM(Open Source Security Testing Methodology Manual)</a
+            >
+          </li>
+        </ul>
+        <h4>Etapas</h4>
+        <h4>Reconocimiento (Primera)</h4>
+        <p>
+          Se obtendrá toda la información disponible en medios de acceso público
+          sobre el objetivo. Se podrán emplear técnicas de reconocimiento pasivo
+          y activo.
+        </p>
+        <h4>Pasiva</h4>
+        <ul>
+          <li>Hacking con buscadores</li>
+          <li>Uso de herramientas de gestión de red(nslookup, dig)</li>
+          <li>
+            Herramientas de búsqueda de metadatos o indagación en redes sociales
+          </li>
+        </ul>
+        <h4>Activa</h4>
+        <ul>
+          <li>Atacante interactua con la víctima(ingeniería social)</li>
+        </ul>
+        <table>
+          <thead>
+            <th>Fase</th>
+            <th>Descripción</th>
+            <th>Objetivos</th>
+            <th>Herramientas</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Enumeración</td>
+              <td>
+                Se escaneará la red para obtener una imagen de su arquitectura
+              </td>
+              <td>IPs,DNS,SO,cortafuegos,servicios activos, etc</td>
+              <td>Nmap,hping3,traceroute,etc</td>
+            </tr>
+            <tr>
+              <td>Explotación</td>
+              <td>
+                Se emplearán <i><b>exploits</b></i> contra servicios y
+                aplicaciones vulnerables, <i><b>fuzzing</b></i> para detectar
+                posibles errores no controlados.
+              </td>
+              <td>
+                Elevación de privilegios e intentar mantener ese acceso no
+                autorizado mediante la instalación de <b>backdoors</b> y
+                <b>rootkits</b>
+              </td>
+              <td>Metasploit, Canvas</td>
+            </tr>
+            <tr>
+              <td>Documentación</td>
+              <td>
+                Documentar información obtenida en las etapas anteriores ¡,
+                describir paso a paso los ataques realizados junto a los
+                resultados producidos.
+              </td>
+              <td>Cliente conozca las vulnerabilidades de su aplicación</td>
+              <td>
+                Finalizar con consejos para solucionar las vulnerabilidades
+                descubiertas.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>1.2 Intro Protocolo HTTP(HyperText Transfer Protocol)</h3>
+        <p>
+          Es un protocolo de la capa de Aplicacion de Modelo OSI. Este protocolo
+          permite realizar peticiones y respuestas en una arquitectura
+          cliente-servidor. Existen los campos de cabecera de peticion y de
+          respuesta HTTP.
+        </p>
+        <p>Códigos de respuesta HTTP:</p>
+        <table>
+          <thead>
+            <th>Código</th>
+            <th>Mensaje</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1xx</td>
+              <td>Mensaje informativo.</td>
+            </tr>
+            <tr>
+              <td>2xx</td>
+              <td>Petición recibida y procesada correctamente.</td>
+            </tr>
+            <tr>
+              <td>3xx</td>
+              <td>Indica que hay que hacer una redirección.</td>
+            </tr>
+            <tr>
+              <td>4xx</td>
+              <td>Se ha producido un error en el cliente.</td>
+            </tr>
+            <tr>
+              <td>5xx</td>
+              <td>Se ha producido un error en el servidor.</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>1.3 Entorno básico de pruebas</h3>
+        <h3>1.3.1 Entornos webs vulnerables</h3>
+        <p>
+          Metasploitable2(máquina virtual que aloja DVWA Y NOWASP Mutillidae)
+        </p>
+        <p>Metasploitable2 - pasos para poner en funcionamiento en VMWare.</p>
+        <ol>
+          <li>Descargar .zip</li>
+          <li>
+            Descomprimir, ir a VMWare al menu File > Open y escoger el archivo
+            .vmx
+          </li>
+        </ol>
+        <p>
+          Nota: Por defecto la tarjeta de red de Metasploitable esta en modo
+          NAT.
+        </p>
+        <p>
+          Recomendación: Usar el modo <b>Host Only</b> para aislar la maquina
+          virtual de cualquier red externa debido a que cuenta con muchos
+          servicios vulnerables y podria ser un riesgo potencial.
+        </p>
+        <p>
+          Datos de acceso para entrar a la máquina virtual user y
+          password(msfadmin)
+        </p>
+        <p>
+          Una vez dentro ejecutar comando <b>ipconfig</b> para obtener la
+          direccion ip y poder acceder al menu web de Metasploitable(http://ip)
+        </p>
+        <h3>
+          Resumen: Entornos web vulnerables DWVA(Damn Vulnerable Web
+          Application) y NOWASP
+        </h3>
+      </section>
+      <section id="cap2">
+        <h2>Capítulo 2 Ataques SQL Injection a bases de datos</h2>
+        <p>Ejemplos de ataques de este tipo:</p>
+        <p>
+          Ataque sitio MySQL en 2011 por los hackers TinKode y Ne0h del grupo
+          Rumano Slacker.Ro(volcado de la base de datos...)
+        </p>
+        <p>Ataque a la firma de seguridad HBGary Federal por parte de Anonymous 2011</p>
+      </section>
+    </main>
+  </body>
+</html>
