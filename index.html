@@ -23,7 +23,7 @@
       </section>
       <section id="cap1">
         <h2>Introducción al pentest web</h2>
-        <h3>1.1 Etapas de un Pentest</h3>
+        <h2>1.1 ETAPAS DEL PENTEST</h2>
         <h4>
           Clasificación dependiendo del nivel de información de partida a la
           hora de realizar el test de penetración
@@ -118,7 +118,7 @@
             </tr>
           </tbody>
         </table>
-        <h3>1.2 Intro Protocolo HTTP(HyperText Transfer Protocol)</h3>
+        <h2>1.2 INTRODUCCION PROTOCOLO HTTP(HyperText Transfer Protocol)</h2>
         <p>
           Es un protocolo de la capa de Aplicacion de Modelo OSI. Este protocolo
           permite realizar peticiones y respuestas en una arquitectura
@@ -154,7 +154,7 @@
             </tr>
           </tbody>
         </table>
-        <h3>1.3 Entorno básico de pruebas</h3>
+        <h2>1.3 ENTORNOS BASICOS DE PRUEBAS</h2>
         <h3>1.3.1 Entornos webs vulnerables</h3>
         <p>
           Metasploitable2(máquina virtual que aloja DVWA Y NOWASP Mutillidae)
@@ -172,7 +172,7 @@
           NAT.
         </p>
         <p>
-          Recomendación: Usar el modo <b>Host Only</b> para aislar la maquina
+          Recomendación: Usar el modo <b>Host Only</b> para aislar la máquina
           virtual de cualquier red externa debido a que cuenta con muchos
           servicios vulnerables y podria ser un riesgo potencial.
         </p>
@@ -184,10 +184,97 @@
           Una vez dentro ejecutar comando <b>ipconfig</b> para obtener la
           direccion ip y poder acceder al menu web de Metasploitable(http://ip)
         </p>
-        <h3>
+        <p>
           Resumen: Entornos web vulnerables DWVA(Damn Vulnerable Web
-          Application) y NOWASP
-        </h3>
+          Application) y NOWASP Mutillidae(Cubre todas las vulnerabilidades
+          presentes enla lista OWASP TOP Ten, "HTML5 Web Storage" o "Click
+          Jacking").
+        </p>
+        <h3>1.3.2 Entorno del atacante</h3>
+        <h4>Suite de <i>pentest</i></h4>
+        <ul>
+          <li>
+            <b><a href="http://www.kali.org/downloads">Kali Linux</a></b> -
+            dispone de un sistema operativo Debian sobre el que se han instalado
+            numeras herramientas orietadas a la realización de auditorías webs.
+          </li>
+          <li>
+            <b>BugtraqTeam</b> - presenta distintos entornos gráficos muy
+            amigables, herramientas de <i>hacking</i>, etc
+          </li>
+        </ul>
+        <p>Dercargar en formato máquina virtual para VMWare</p>
+        <p>
+          <b>IMPORTANTE!</b> se debe tener en cuenta el modo de la tarjeta de
+          red. Dicho modo debe coicidir con el establecido en la Metasploitable
+          2, de forma que ambas máquinas esten en la misma red.
+        </p>
+        <h2>1.4 FIGENRPRINTING WE SERVERS</h2>
+        <p>
+          El término <i>fingerprinting</i> hace referencia a la huella
+          distintiva que permite identificar un sistema. En este caso, estaremos
+          profundizando en el HTTP <i>Fingerprinting</i>
+        </p>
+        <h3>1.4.1 Tipo y versión del servidor web</h3>
+        <p>
+          <b>Etiquetas Server y Vía de la cabecera HTTP</b>. Este método de
+          <i>fingerprinting</i> consiste en impeccionar la cabecera HTTP
+          devuelta por el servidor en busca de la etiqueta Server. De forma
+          genérica esta técnica de conoce como <i>Banner Grabing</i>
+        </p>
+        <p>
+          el campo Vía de la cabecera es utilizado por proxiesy gateways para
+          indicar los protocolos entre el User Agent y el Server.
+        </p>
+        <p>
+          <b>Identificación a través de páginas de error</b>.La idea consiste en
+          eviar peticiones mal formadas para que el servidor responda con una
+          página de error(error 404) donde se pueden revelar informacion sobre
+          el SW empleado en el servidor. Por eso es tan importante establecer
+          páginas de error personalizadas.
+        </p>
+        <p>
+          <b>Análisis del comportamiento de la respuesta HTTP</b>. Consiste en
+          realizar diversos tipos de peticiones y estudiar las respuestas
+          devueltas por distintos modelos de servidores. Ejemplos a continuación
+        </p>
+        <ul>
+          <li>Distintos campos en la cabecera</li>
+          <li>Orden de los campos de la cabecera</li>
+          <li>Lista de los métodos permitidos</li>
+          <li>Respuestas antes peticiones DELETE</li>
+        </ul>
+        <h3>Tecnologías empleadas en el servidor web</h3>
+        <p>
+          Otro aspecto importante para poder orientar adecuandamente los ataques
+          que realizará el auditor es el de determinar las tecnologías con las
+          que trabaja el servidor. A partir de esta información el
+          <i>pentester</i> podrá buscar vulnerabilidades propias de esos
+          lenguajes y seleccionar la sintaxis de sus inyecciones de código
+          malicioso.
+        </p>
+        <p>
+          Formas de determinar las tecnologías con que trabaja el Servidor web:
+        </p>
+        <ul>
+          <li>Cabecera X-Powered-By</li>
+          <li>Extensiones de los scripts</li>
+          <li>Contenido de las cookies</li>
+        </ul>
+        <h3>1.4.3 Herramientas automatizadas</h3>
+        <ul>
+          <li>
+            Httprint(permite llevar procesos de identificación aun cuando hay un
+            WAF como ModSecurity)
+          </li>
+          <li>Nmap(permite escanear redes para la realización de auditorias de seguirdad.Caracteristica potente Nmap Script Engine(NSE))</li>
+          <li>WhatWeb(herramienta cuyo objetivo es realizar el proceso de <i>fingerprinting</i> de servidores web,gestores de contenidos, frameworks para blogs,librerias de JavaScript. Ademas <i>Torificar(red Tor-The Union Router-)</i> la herramienta)</li>
+          <li>BlindElephant(herramienta escrita en Python usa tecnicas de detección no invasiva y rápida)</li>
+        </ul>
+        <h2>INFORMATION GATHERING</h2>
+        <h3>1.5.1 Ingeniería social</h3>
+        <p>Por ingenieria social se entiende cualquier tecnica usada que pretenda aprovecharse del factor humano para consecución de revelaciones de informaciones.</p>
+        <h3>1.5.2 Informacion del registro de nombre de dominio</h3>
       </section>
       <section id="cap2">
         <h2>Capítulo 2 Ataques SQL Injection a bases de datos</h2>
@@ -196,7 +283,10 @@
           Ataque sitio MySQL en 2011 por los hackers TinKode y Ne0h del grupo
           Rumano Slacker.Ro(volcado de la base de datos...)
         </p>
-        <p>Ataque a la firma de seguridad HBGary Federal por parte de Anonymous 2011</p>
+        <p>
+          Ataque a la firma de seguridad HBGary Federal por parte de Anonymous
+          2011
+        </p>
       </section>
     </main>
   </body>
