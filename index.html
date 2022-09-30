@@ -20,10 +20,13 @@
       <section>
         <h2>Índice</h2>
         <div>
-          <a href="#cap1">Capitulo 1.Introducción al Pentest web</a>
+          <a href="#cap1">Capítulo 1.Introducción al Pentest web</a>
         </div>
         <div>
-          <a href="#cap2">Capitulo 2. Ataques SQL Injection a base de datos</a>
+          <a href="#cap2">Capítulo 2. Ataques SQL Injection a base de datos</a>
+        </div>
+        <div>
+          <a href="#cap3">Capítulo 3. Cross-Site Scripting</a>
         </div>
       </section>
       <section id="cap1">
@@ -318,14 +321,22 @@
           <li>Host(sencilla, para consultas de menos extensión.)</li>
         </ul>
         <h2>1.6 HACKING CON BUSCADORES</h2>
-        <p>Técnica que complementaría la fase de "<b><i>information gathering</i></b>" y que consiste en usar los propios motores de búsquedas de Internet para localizar informción sencible o útil para un posible ataque.</p>
+        <p>
+          Técnica que complementaría la fase de "<b
+            ><i>information gathering</i></b
+          >" y que consiste en usar los propios motores de búsquedas de Internet
+          para localizar informción sencible o útil para un posible ataque.
+        </p>
         <ul>
           <li>google(oepradores:site,intitle, inurl,intext, filetype)</li>
           <li>Shodan(criterios: city, country,os,port)</li>
         </ul>
       </section>
       <section id="cap2">
-        <h2>Capítulo 2 Ataques SQL Injection a bases de datos <a href="#beginning">^</a></h2> 
+        <h2>
+          Capítulo 2 Ataques SQL Injection a bases de datos
+          <a href="#beginning">^</a>
+        </h2>
         <p>Ejemplos de ataques de este tipo:</p>
         <p>
           Ataque sitio MySQL en 2011 por los hackers TinKode y Ne0h del grupo
@@ -337,8 +348,45 @@
         </p>
       </section>
       <section>
-        <h2>CROSS SITE SCRIPTING</h2>
-        <p>Los ataques de Cross-Site Scripting o XSS constituyen un tipo de inyección de código,generalmente JavaScript(aunque puede ser aprovechado por otros lenguajes como HTML, etc.) que tiene como objetivo no atacar la maquina que presta el servicio web, sino al resto de usuarios que acceden a dichos servidores web, utilizando como pasarela</p>
+        <h2 id="cap3">CROSS SITE SCRIPTING <a href="#beginning">^</a></h2>
+        <p>
+          Los ataques de Cross-Site Scripting o XSS constituyen un tipo de
+          inyección de código,generalmente JavaScript(aunque puede ser
+          aprovechado por otros lenguajes como HTML, etc.) que tiene como
+          objetivo no atacar la maquina que presta el servicio web, sino al
+          resto de usuarios que acceden a dichos servidores web, utilizando como
+          pasarela para ello una aplicació vulnerable que este ejecutandose en
+          el servidor implicado.
+        </p>
+        <p>
+          El pricipal motivo de la existencia de esta vulnerabilidad es que la
+          aplicacion web no filtra correctamente una cadena de texto recibida,
+          en la que un posible atacante ha introducido intencionalmente
+          instrucciones interpretables mediamte un lenguaje de programación
+          dado.
+        </p>
+        <p>
+          uno de los valores que aporta esta vulnerabilidad a los atacantes es
+          su gran flexibilidad, que dependiendo de la aplicacion y el contexto
+          en que se ecuentre permitiran desde el robo de variables de
+          sesión(suplantación de usuario) hasta redireccion a sitios web
+          fraudulentos(ataques de <i>phishing</i> bancario)
+        </p>
+        <p>
+          Ranking Top 10 OWASP - El Cross-Site Scripting(XSS) ocupaba el tercer
+          puesto en el ranking del 2013 y en el 2010 ocupapa el 2 puesto
+        </p>
+        <p>Recursos:</p>
+        <div>
+          <a href="https://www.nist.gov/">https://www.nist.gov/</a>
+        </div>
+        <div>
+          <a href="http://xssed.com/">http://xssed.com/</a>
+        </div>
+        <h3>3.2 XSS REFLEJADO</h3>
+        <p>El Cross-Site Scripting Reflejado es aquel en el cual al servidor le llega un fragmeto de código interpretable, generalmente HTML o JavaScript y lo reenvia introducido directamente en el código fuente de una página web vulnerable hacia la parte cliente de la aplicación, que suele ser le navegador web del cliente. El codigo sera interpretado por el navegador web del usuario y los efectos implicados se manifestarán en el mismo. El código inyectado no se almacena en ningun lado, siendo enviado directamente a la aplicacion web por algunos de los posibles campos recibidos.</p>
+        <p>Ejemplo. Campo de Búsqueda de contenido. Si se introduce: </p> 
+        <pre><code><h1>codigo_inyectado</h1></code></pre>
       </section>
     </main>
   </body>
