@@ -7,7 +7,7 @@
     <title>Resumen Hacking y seguridad de páginas webs</title>
   </head>
   <body>
-    <h1>Resumen Hacking y seguridad de páginas webs</h1>
+    <h1 id="beginning">Resumen "Hacking y seguridad de páginas webs"</h1>
     <h2>Autores:</h2>
     <ul>
       <li>Antonio Ángel Ramos</li>
@@ -19,10 +19,15 @@
     <main>
       <section>
         <h2>Índice</h2>
-        <a href="#cap1">Capitulo 1.Introducción al Pentest web</a>
+        <div>
+          <a href="#cap1">Capitulo 1.Introducción al Pentest web</a>
+        </div>
+        <div>
+          <a href="#cap2">Capitulo 2. Ataques SQL Injection a base de datos</a>
+        </div>
       </section>
       <section id="cap1">
-        <h2>Introducción al pentest web</h2>
+        <h2>Introducción al pentest web <a href="#beginning">^</a></h2>
         <h2>1.1 ETAPAS DEL PENTEST</h2>
         <h4>
           Clasificación dependiendo del nivel de información de partida a la
@@ -54,14 +59,14 @@
             >
           </li>
         </ul>
-        <h4>Etapas</h4>
+        <h3>Etapas</h3>
         <h4>Reconocimiento (Primera)</h4>
         <p>
           Se obtendrá toda la información disponible en medios de acceso público
           sobre el objetivo. Se podrán emplear técnicas de reconocimiento pasivo
           y activo.
         </p>
-        <h4>Pasiva</h4>
+        <b>Pasiva</b>
         <ul>
           <li>Hacking con buscadores</li>
           <li>Uso de herramientas de gestión de red(nslookup, dig)</li>
@@ -69,7 +74,7 @@
             Herramientas de búsqueda de metadatos o indagación en redes sociales
           </li>
         </ul>
-        <h4>Activa</h4>
+        <b>Activa</b>
         <ul>
           <li>Atacante interactua con la víctima(ingeniería social)</li>
         </ul>
@@ -267,17 +272,60 @@
             Httprint(permite llevar procesos de identificación aun cuando hay un
             WAF como ModSecurity)
           </li>
-          <li>Nmap(permite escanear redes para la realización de auditorias de seguirdad.Caracteristica potente Nmap Script Engine(NSE))</li>
-          <li>WhatWeb(herramienta cuyo objetivo es realizar el proceso de <i>fingerprinting</i> de servidores web,gestores de contenidos, frameworks para blogs,librerias de JavaScript. Ademas <i>Torificar(red Tor-The Union Router-)</i> la herramienta)</li>
-          <li>BlindElephant(herramienta escrita en Python usa tecnicas de detección no invasiva y rápida)</li>
+          <li>
+            Nmap(permite escanear redes para la realización de auditorias de
+            seguirdad.Caracteristica potente Nmap Script Engine(NSE))
+          </li>
+          <li>
+            WhatWeb(herramienta cuyo objetivo es realizar el proceso de
+            <i>fingerprinting</i> de servidores web,gestores de contenidos,
+            frameworks para blogs,librerias de JavaScript. Ademas
+            <i>Torificar(red Tor-The Union Router-)</i> la herramienta)
+          </li>
+          <li>
+            BlindElephant(herramienta escrita en Python usa tecnicas de
+            detección no invasiva y rápida)
+          </li>
         </ul>
         <h2>INFORMATION GATHERING</h2>
         <h3>1.5.1 Ingeniería social</h3>
-        <p>Por ingenieria social se entiende cualquier tecnica usada que pretenda aprovecharse del factor humano para consecución de revelaciones de informaciones.</p>
-        <h3>1.5.2 Informacion del registro de nombre de dominio</h3>
+        <p>
+          Por ingenieria social se entiende cualquier técnica usada que pretenda
+          aprovecharse del factor humano para consecución de revelaciones de
+          informaciones.
+        </p>
+        <h3>1.5.2 Información del registro de nombre de dominio</h3>
+        <p>
+          Cuando se registra un nombre de dominio público o cuando se solicita
+          la propiedad de un direccion de IP esta queda asociada a un registro
+          con información diversa sobre el titular del servicio(datos de interés
+          como servidores DNS, emails de administradores). El protocolo que
+          permite la consulta de esta información se denomina
+          <b><i>whois</i></b> y es posible trabajar con el mismo a través de
+          herramientas de linea de comando o portales webs ej.
+          <a href="http://allwhois.org" target="_blank">http://allwhois.org</a>
+        </p>
+        <h3>1.5.3 Consultas de zona DNS</h3>
+        <p>
+          Los serivdores DNS(Domain Name System) son aquellos encargados de
+          realizar la traduccion de nombres de dominio, más sencillos de
+          recordar, a sus correspondientes direcciones IP en Internet.
+        </p>
+        <p>Herramientas de consultas DNS</p>
+        <ul>
+          <li>Nslookup(herramienta tradicional se considera anticuada)</li>
+          <li>Dig(potente)</li>
+          <li>Host(sencilla, para consultas de menos extensión.)</li>
+        </ul>
+        <h2>1.6 HACKING CON BUSCADORES</h2>
+        <p>Técnica que complementaría la fase de "<b><i>information gathering</i></b>" y que consiste en usar los propios motores de búsquedas de Internet para localizar informción sencible o útil para un posible ataque.</p>
+        <ul>
+          <li>google(oepradores:site,intitle, inurl,intext, filetype)</li>
+          <li>Shodan(criterios: city, country,os,port)</li>
+        </ul>
       </section>
       <section id="cap2">
-        <h2>Capítulo 2 Ataques SQL Injection a bases de datos</h2>
+        <h2>Capítulo 2 Ataques SQL Injection a bases de datos <a href="#beginning">^</a></h2> 
         <p>Ejemplos de ataques de este tipo:</p>
         <p>
           Ataque sitio MySQL en 2011 por los hackers TinKode y Ne0h del grupo
@@ -287,6 +335,10 @@
           Ataque a la firma de seguridad HBGary Federal por parte de Anonymous
           2011
         </p>
+      </section>
+      <section>
+        <h2>CROSS SITE SCRIPTING</h2>
+        <p>Los ataques de Cross-Site Scripting o XSS constituyen un tipo de inyección de código,generalmente JavaScript(aunque puede ser aprovechado por otros lenguajes como HTML, etc.) que tiene como objetivo no atacar la maquina que presta el servicio web, sino al resto de usuarios que acceden a dichos servidores web, utilizando como pasarela</p>
       </section>
     </main>
   </body>
