@@ -385,7 +385,7 @@
         </div>
         <h3>3.2 XSS REFLEJADO</h3>
         <p>
-          El Cross-Site Scripting Reflejado es aquel en el cual al servidor le
+          El <b>Cross-Site Scripting Reflejado</b> es aquel en el cual al servidor le
           llega un fragmeto de código interpretable, generalmente HTML o
           JavaScript y lo reenvia introducido directamente en el código fuente
           de una página web vulnerable hacia la parte cliente de la aplicación,
@@ -395,10 +395,27 @@
           ningun lado, siendo enviado directamente a la aplicacion web por
           algunos de los posibles campos recibidos.
         </p>
-        <p>Ejemplo. Campo de Búsqueda de contenido. Si se introduce:</p>
+        <p>
+          Ejemplo. Campo de Búsqueda de contenido. Si se introduce en el campo
+          de búsqueda:
+        </p>
         <pre>
-          <code> h1 - codigo_inyectado - </code>
+          <code> &lt;h1>codigo_inyectado&lt;/h1></code>
         </pre>
+        <p>
+          Luego se muestra en el cuerpo de la pagina el mensaje: Los resultados
+          de buscar codigo_inyectado sin los siguientes:
+        </p>
+        <p>
+          Si en este mensaje la cadena <i>codigo_inyectado</i> se mostarse como
+          un encabezado de primer nivel, significaria que la aplicación a
+          compuesto esta pagina de resultados
+          <b>concatenando directamente</b> la cadena introducida para buscar sin tratarla. Con esto se habria conseguido introducir codigo malicioso en la aplicacion que ha afectado directamente al cliente, sin que dicho código haya tenido que ser almacenado en al aplicación.
+        </p>
+        <p>Dado que el contenido inyectado no se guarda en el servidor y va introducido en la misma peticion HTTP, por ejemplo:</p>
+        <p>http://www.miweb.com/buscar.php?busqueda=&lt;h1>codigo_inyectado&lt;/h1></p>
+        <p>Para consegir que una tercera persona, usuario victima del ataque, reciba el resultado de interpretar este codigo en su navegador, deberia ser el quien realizase la peticion HTTP. Para ello, en este tipo de ataque suele emplearse el envio de URL malisiosa por email, publicación de enlaces o foros de internet, etc.</p>
+        <p>Ver ejemplos de la plataforma de pruebas <b>Damn Vulnerable Web Application(DVWA)</b></p>
       </section>
       <section id="cap6">
         <h2>Web Application Firewall</h2>
@@ -499,7 +516,8 @@
           <li>
             Es importante no solo tener esa capa de protección que aporta el
             WAF, sino además tener filtros en las páginas webs que sirvan de
-            protección en caso que un ataque consiga traspasar la seguridad de la primera barrera(WAF).
+            protección en caso que un ataque consiga traspasar la seguridad de
+            la primera barrera(WAF).
           </li>
         </ul>
       </section>
