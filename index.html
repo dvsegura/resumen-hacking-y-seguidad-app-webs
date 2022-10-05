@@ -384,9 +384,124 @@
           <a href="http://xssed.com/">http://xssed.com/</a>
         </div>
         <h3>3.2 XSS REFLEJADO</h3>
-        <p>El Cross-Site Scripting Reflejado es aquel en el cual al servidor le llega un fragmeto de código interpretable, generalmente HTML o JavaScript y lo reenvia introducido directamente en el código fuente de una página web vulnerable hacia la parte cliente de la aplicación, que suele ser le navegador web del cliente. El codigo sera interpretado por el navegador web del usuario y los efectos implicados se manifestarán en el mismo. El código inyectado no se almacena en ningun lado, siendo enviado directamente a la aplicacion web por algunos de los posibles campos recibidos.</p>
-        <p>Ejemplo. Campo de Búsqueda de contenido. Si se introduce: </p> 
-        <pre><code><h1>codigo_inyectado</h1></code></pre>
+        <p>
+          El Cross-Site Scripting Reflejado es aquel en el cual al servidor le
+          llega un fragmeto de código interpretable, generalmente HTML o
+          JavaScript y lo reenvia introducido directamente en el código fuente
+          de una página web vulnerable hacia la parte cliente de la aplicación,
+          que suele ser le navegador web del cliente. El codigo sera
+          interpretado por el navegador web del usuario y los efectos implicados
+          se manifestarán en el mismo. El código inyectado no se almacena en
+          ningun lado, siendo enviado directamente a la aplicacion web por
+          algunos de los posibles campos recibidos.
+        </p>
+        <p>Ejemplo. Campo de Búsqueda de contenido. Si se introduce:</p>
+        <pre>
+          <code> h1 - codigo_inyectado - </code>
+        </pre>
+      </section>
+      <section id="cap6">
+        <h2>Web Application Firewall</h2>
+        <h3>6.3 Técnicas de evasión de WAF basado en HPP y HPF</h3>
+        <p>
+          Un ataque <b>HPP</b> se puede utilizar para hacer un bypass del WAF o
+          conseguir generar comportamientos inestabls en la aplicacion web en
+          caso que no haya un WAF. Este ataque consiste en inyectar varios
+          parametros repetidos y en uno de ellos introducir codigo para vulnerar
+          la aplicacion web. En el otro parámetro un dato normal
+        </p>
+        <p>ver Práctica Ataque HPP</p>
+        <ul>
+          <li>
+            Test 1 - Introducir 2 veces el parámetro ID con distintos valores
+            númericos(index.jsp?id=1&id=2). Resultado(el script ha escogido el
+            último campo(php))
+          </li>
+          <li>
+            Test 2 - Introducir una "SQL Injection" en el ultimo parametro
+            repetido(index.jsp?id=2&id=' or 1=1 -'). Resultado(Ataque exitoso -
+            debido a que el WAF solo analizó el primer parámetro que era
+            correcto)
+          </li>
+          <li>
+            Test 3 - Introducir igual que el Test 2 pero invirtiendo el orden de
+            los parámetros. Resultado(Ataque Fallido - debido a que en este caso
+            el primer parametro no cumplia con la expresion regular)
+          </li>
+        </ul>
+        <p>
+          Peticiones http parameter fragmentation esta tecnica consiste en ir
+          introduciendo una vulnerabilidad en la aplicacion web po trozos, es
+          decir, dividir una inyección SQL en diferentes partes e introducir
+          cada parte en cada uno de los parametros que recibe la aplicación.
+        </p>
+        <p>
+          Ejemplo de un buscador con 3 campos de busqueda. Se podra inyectar de
+          esta manera
+        </p>
+        <ul>
+          <li>
+            El campo 1 contiene el fragmento de inyeccion:
+            <i><b>' or 1/'</b></i>
+          </li>
+          <li>
+            El campo 2 contiene el fragmento: <i><b>*/ =0 union /*</b></i>
+          </li>
+          <li>
+            El campo 3 contiene:
+            <i><b>*/ select user(),database(),version()-/*</b></i>
+          </li>
+        </ul>
+        <p>
+          En el ataque se ha mostrado como dividiendo la inyección en partes es
+          posible llegar a saltarse la seguridad que aplicaba al WAF. Se podría
+          crear otro tipo de filtros para realizar búsquedas por palabras o
+          símbolos en vez de por una vulnerabilidad en concreto. Es decir, un
+          filtro que al encontrar la palabra(select, union, etc) bloqueara la
+          peticion. El problema que puede surgir con estos filtros tan
+          exhaustivos es que pueden llegar a restringir tanto que no permitira
+          funcionar al cien porcieto la aplicacion web. <b>SOLUCION</b> (Listas
+          Poderadas): crear varios filtros y cada uno de ellos devovera un
+          número. Ese numero se acumular y se sumara con el resto de numeros
+          devueltos por cada filtro. Si la suma supera un cantidad establecida,
+          se considerara un ataque.
+        </p>
+        <p>
+          Sehan visto las tecnicas de evasion WAF HPP Y HFP pero tambien existen
+          otras técnicas:
+        </p>
+        <ul>
+          <li>Escribir las inyección SQL en mayúsculas y minúsculas</li>
+          <li>
+            <i>bytes</i> nulos(El <i>byte null</i> equivale a la cadena "%00").
+            Ejemplo de inyeccion: "%00' or 1=1#"
+          </li>
+          <li>
+            Hay WAF que leen de izquierda a derecha. En ese caso es posible
+            realizar un ataque tipo XSS. El WAF puede tener un filtro que busque
+            la palabra <i>script</i> y al encontrarla la sustituya por vacio.
+            Para poder evadir este filtro se puede anidará el ataque de la
+            siguiente manera:
+            &lt;scr<b>script</b>ipt>alert(0)&lt;/scr<b>script</b>ipt>. Al el WAF
+            eliminar "script" se juntaria la cadena y daria lugar al ataque XSS
+            bien formado.
+          </li>
+        </ul>
+        <p>CONCLUSIONES</p>
+        <ul>
+          <li>
+            Si no se realiza una correcta configuracion y mantenimiento del WAF,
+            no valdrá la pena tenerlo.
+          </li>
+          <li>
+            También es posible evadir los mecanismos de seguridad de un WAF
+          </li>
+          <li>
+            Es importante no solo tener esa capa de protección que aporta el
+            WAF, sino además tener filtros en las páginas webs que sirvan de
+            protección en caso que un ataque consiga traspasar la seguridad de la primera barrera(WAF).
+          </li>
+        </ul>
       </section>
     </main>
   </body>
