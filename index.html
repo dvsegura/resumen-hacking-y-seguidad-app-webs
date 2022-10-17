@@ -28,6 +28,10 @@
         <div>
           <a href="#cap3">Capítulo 3. Cross-Site Scripting</a>
         </div>
+        <div>
+          <a href="#cap6">Capítulo 6. Wew Application Firewall</a>
+        </div>
+
       </section>
       <section id="cap1">
         <h2>Introducción al pentest web <a href="#beginning">^</a></h2>
@@ -366,7 +370,7 @@
           dado.
         </p>
         <p>
-          uno de los valores que aporta esta vulnerabilidad a los atacantes es
+          Uno de los valores que aporta esta vulnerabilidad a los atacantes es
           su gran flexibilidad, que dependiendo de la aplicacion y el contexto
           en que se ecuentre permitiran desde el robo de variables de
           sesión(suplantación de usuario) hasta redireccion a sitios web
@@ -414,8 +418,9 @@
         </p>
         <p>Dado que el contenido inyectado no se guarda en el servidor y va introducido en la misma peticion HTTP, por ejemplo:</p>
         <p>http://www.miweb.com/buscar.php?busqueda=&lt;h1>codigo_inyectado&lt;/h1></p>
-        <p>Para consegir que una tercera persona, usuario victima del ataque, reciba el resultado de interpretar este codigo en su navegador, deberia ser el quien realizase la peticion HTTP. Para ello, en este tipo de ataque suele emplearse el envio de URL malisiosa por email, publicación de enlaces o foros de internet, etc.</p>
-        <p>Ver ejemplos de la plataforma de pruebas <b>Damn Vulnerable Web Application(DVWA)</b></p>
+        <p>Para consegir que una tercera persona, usuario víctima del ataque, reciba el resultado de interpretar este código en su navegador, deberia ser el quien realizase la petición HTTP. Para ello, en este tipo de ataque suele emplearse el envio de URL malisiosa por email, publicación de enlaces o foros de internet, etc.</p>
+        <p>Ver ejemplos de la plataforma de pruebas <b>Damn Vulnerable Web Application(DVWA)</b>-Nivel Low</p>
+        <p>Como puede comprobarse, toda variable o parámetro que reciba la aplicacion debe ser correctamente filtrado, evitando que contenga valores que puedan causar comportamiento inesperado.</p>
       </section>
       <section id="cap6">
         <h2>Web Application Firewall</h2>
@@ -447,18 +452,18 @@
           </li>
         </ul>
         <p>
-          Peticiones http parameter fragmentation esta tecnica consiste en ir
-          introduciendo una vulnerabilidad en la aplicacion web po trozos, es
+          Peticiones http parameter fragmentation esta técnica consiste en ir
+          introduciendo una vulnerabilidad en la aplicación web po trozos, es
           decir, dividir una inyección SQL en diferentes partes e introducir
-          cada parte en cada uno de los parametros que recibe la aplicación.
+          cada parte en cada uno de los parámetros que recibe la aplicación.
         </p>
         <p>
-          Ejemplo de un buscador con 3 campos de busqueda. Se podra inyectar de
-          esta manera
+          Ejemplo de un buscador con 3 campos de búsqueda. Se podrá inyectar de
+          esta manera:
         </p>
         <ul>
           <li>
-            El campo 1 contiene el fragmento de inyeccion:
+            El campo 1 contiene el fragmento de inyección:
             <i><b>' or 1/'</b></i>
           </li>
           <li>
@@ -469,29 +474,31 @@
             <i><b>*/ select user(),database(),version()-/*</b></i>
           </li>
         </ul>
+        <p class="info">Nota: para probar el funcionamiento de buscarlibros.php con el WAF, hay que realizar un cambio en el formulario de la página, sustituyendo el valor del action por la direccion donde se encuentra el WAF. Ej. </p>
+        <code>form action="http://localhost:8080/waf/index.jsp" method="get"</code>        
         <p>
           En el ataque se ha mostrado como dividiendo la inyección en partes es
           posible llegar a saltarse la seguridad que aplicaba al WAF. Se podría
           crear otro tipo de filtros para realizar búsquedas por palabras o
           símbolos en vez de por una vulnerabilidad en concreto. Es decir, un
           filtro que al encontrar la palabra(select, union, etc) bloqueara la
-          peticion. El problema que puede surgir con estos filtros tan
-          exhaustivos es que pueden llegar a restringir tanto que no permitira
+          petición. El problema que puede surgir con estos filtros tan
+          exhaustivos es que pueden llegar a restringir tanto que no permitirá
           funcionar al cien porcieto la aplicacion web. <b>SOLUCION</b> (Listas
           Poderadas): crear varios filtros y cada uno de ellos devovera un
-          número. Ese numero se acumular y se sumara con el resto de numeros
+          número. Ese numero se acumular y se sumara con el resto de números
           devueltos por cada filtro. Si la suma supera un cantidad establecida,
           se considerara un ataque.
         </p>
         <p>
-          Sehan visto las tecnicas de evasion WAF HPP Y HFP pero tambien existen
+          Se han visto las técnicas de evasion WAF HPP Y HFP pero tambien existen
           otras técnicas:
         </p>
         <ul>
           <li>Escribir las inyección SQL en mayúsculas y minúsculas</li>
           <li>
-            <i>bytes</i> nulos(El <i>byte null</i> equivale a la cadena "%00").
-            Ejemplo de inyeccion: "%00' or 1=1#"
+            <i>bytes</i> nulos(El <i>byte null</i> equivale a la cadena "%00") y representa la terminación de una cadena o caracter. Por tanto lo que estuviera detrás del byte nulo quedaría anulado por el lenguaje de programación. 
+            Ejemplo de inyección: "%00' or 1=1#"
           </li>
           <li>
             Hay WAF que leen de izquierda a derecha. En ese caso es posible
@@ -500,14 +507,14 @@
             Para poder evadir este filtro se puede anidará el ataque de la
             siguiente manera:
             &lt;scr<b>script</b>ipt>alert(0)&lt;/scr<b>script</b>ipt>. Al el WAF
-            eliminar "script" se juntaria la cadena y daria lugar al ataque XSS
+            eliminar "script" se juntaría la cadena y daría lugar al ataque XSS
             bien formado.
           </li>
         </ul>
         <p>CONCLUSIONES</p>
         <ul>
           <li>
-            Si no se realiza una correcta configuracion y mantenimiento del WAF,
+            Si no se realiza una correcta configuración y mantenimiento del WAF,
             no valdrá la pena tenerlo.
           </li>
           <li>
