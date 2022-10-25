@@ -29,6 +29,9 @@
           <a href="#cap3">Capítulo 3. Cross-Site Scripting</a>
         </div>
         <div>
+          <a href="#cap5">Capítulo 5. HACKING con HTML5</a>
+        </div>
+        <div>
           <a href="#cap6">Capítulo 6. Wew Application Firewall</a>
         </div>
 
@@ -421,6 +424,64 @@
         <p>Para consegir que una tercera persona, usuario víctima del ataque, reciba el resultado de interpretar este código en su navegador, deberia ser el quien realizase la petición HTTP. Para ello, en este tipo de ataque suele emplearse el envio de URL malisiosa por email, publicación de enlaces o foros de internet, etc.</p>
         <p>Ver ejemplos de la plataforma de pruebas <b>Damn Vulnerable Web Application(DVWA)</b>-Nivel Low</p>
         <p>Como puede comprobarse, toda variable o parámetro que reciba la aplicacion debe ser correctamente filtrado, evitando que contenga valores que puedan causar comportamiento inesperado.</p>
+      </section>
+      <section id="cap5">
+        <h2>Hacking con HTML5</h2>
+        <h3>Presentando HTML5</h3>
+        <p>HTML5 es el resultado del trabajo conjunto del World Wide Web Consortium(W3C) que se encarga principalmente del XHTML2.0 y del Web Hypertext Application Technology Working Group(WHATWG) que se centra en el tratamiento de aplicaciones y formularios web.</p>
+        <p>Objetivos:</p>
+        <ul>
+          <li>Multiplataforma e independiente del dispositivo utilizado.</li>
+          <li>Se debe proporcionar todo tipo de contenidos audiovisuales, empleando las etiquetas prevista para cada caso. Se busca que no sea necesario instalar plugins de terceros. </li>
+          <li>No debe limitarse a proporcionar información que solo pueda ser reproducida <i>on-line</i> sino que tiene que ser funcional incluso <i>offline</i> a través de una caché.</li>
+          <li>Apliación de las posibilidades de estilos CSS, dando lugar al CSS3 </li>
+          <li>HTML5 debe ser compatible con HTML4</li>
+        </ul>
+        <p>Algunas etiquetas nuevas del HTML5:(<i>article,header,nav,footer,aside,audio,video,canvas</i>)</p>
+        <p>Otras caracteríticas:</p>
+        <ul>
+          <li>Web Sockets(establece un canal de comunicación permanente por el que intercamiar contenido)</li>
+          <li>Web Workers(permiten ejecutar scripts en forma de <i>threads</i> que correran en segudo plano concretamente, en un contexto global distinto al del objeto <i>window</i> actual)</li>
+        </ul>
+        <div style="border: thin solid grey;">
+          <p><b>Socket: TCP/IP puede entenderce como uno de los extremos de una comunicación bidimencional entre dos procesos. Cada socket estara identificado pr la direccion IP a la que pertenece.</b></p>
+        </div>
+        <p><b>Nota</b>: HTML5 puede habilitar una cache conocida como <i>appcache</i> para trabajar <i>offline</i>. Forma de activarla mediante el atributo <i><b>manifest</b></i> de la etiqueta html</p>
+        <h3>5.2 Nuevos vectores para ataques comunes</h3>
+        <h4>5.2.1 XSS con HTML5</h4>
+        <p>A continuación se presentan algunos vectores que pueden ser utiles para intentar inyectar XSS mediante HTML5: </p>
+        <ul>
+          <li>etiquetas audio y video</li>
+          <li>Atributo <i>poster</i> de la etiqueta video</li>
+          <li>Atributo <i>formaction</i></li>
+          <li>Atributo <i>autofocus</i> y <i>onfocus</i></li>
+          <li>Atributo <i>autofocus</i> con <i>onblur</i></li>
+        </ul>
+        <h4>5.2.2 Clickjacking HTML5</h4> 
+        <p>La técnica del Clickjacking tambien conocida como <i>User Interface Redressing</i> tiene como finalidad engañar al usuario para que pulse en algun boton o arrastre algun elemento hacia un lugar que le interese al atacante. Con un objetivo aparentemente inocente, cuando realmente con la accion de usuario se está enviando información a otra página.(Ej.iframe con capa opaccity 0)</p>
+        <p>Api de Drag-and-Drop</p>
+        <code>div draggable="true" ondragstart="event.dataTransfer.setData('text/plain', 'valor de la inyección')"</code>
+        <p>Con el anterior proceso junto a ingenieria social se podría implementar un ataque de este tipo. </p>
+        <h4>5.2.3 Manipulación del historial de navegación</h4>
+        <p>2 nuevos métodos de HTML5 </p>
+        <ul>
+          <li>pushState(objeto, título, url):crea una nueva entrada en el historial.</li>
+          <li>replaceState(objeto, titlo, url)</li>
+        </ul>
+        <p>Ejemplos</p>
+        <code>
+          function insertar(){
+            history.pushState({},"","/ComoHacerB.html");
+            history.pushState({},"","/paginaMaliciosa2.html");
+            history.pushState({},"","/paginaMaliciosa3.html");
+          }          
+        </code>
+        <code>
+          script
+            history.replace({},"","/paginaPhising.php");
+          /script
+        </code>
+        <h3>5.3 Local storage y session storage</h3>
       </section>
       <section id="cap6">
         <h2>Web Application Firewall</h2>
